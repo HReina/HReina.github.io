@@ -86,15 +86,15 @@
 
 
 
-<meta name="description" content="最长递增子序列及其变种  300.最长递增子序列1234567891011121314151617181920212223class Solution &amp;#123;public:    int lengthOfLIS(vector&lt;int&gt;&amp; nums) &amp;#123;        &#x2F;&#x2F;dp[i]表示以nums[i]结尾的最长递增子序列的长度        int n&#x3D;num">
+<meta name="description" content="最长递增子序列及其变种">
 <meta property="og:type" content="article">
 <meta property="og:title" content="最长递增子序列相关">
 <meta property="og:url" content="http://hreina.com/2022/07/22/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="HReina">
-<meta property="og:description" content="最长递增子序列及其变种  300.最长递增子序列1234567891011121314151617181920212223class Solution &amp;#123;public:    int lengthOfLIS(vector&lt;int&gt;&amp; nums) &amp;#123;        &#x2F;&#x2F;dp[i]表示以nums[i]结尾的最长递增子序列的长度        int n&#x3D;num">
+<meta property="og:description" content="最长递增子序列及其变种">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-07-22T08:51:50.000Z">
-<meta property="article:modified_time" content="2022-07-22T13:06:37.584Z">
+<meta property="article:modified_time" content="2022-07-22T14:57:47.493Z">
 <meta property="article:author" content="HReina">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="算法">
@@ -429,6 +429,8 @@
         <blockquote>
 <p>最长递增子序列及其变种</p>
 </blockquote>
+<span id="more"></span>
+
 <h4 id="300-最长递增子序列"><a href="#300-最长递增子序列" class="headerlink" title="300.最长递增子序列"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-increasing-subsequence/">300.最长递增子序列</a></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-comment">//dp[i]表示以nums[i]结尾的最长递增子序列的长度</span><br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n, <span class="hljs-number">1</span>)</span></span>;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)&#123;<br>                <span class="hljs-comment">//寻找nums[0...j-1]中比nums[i]小的元素</span><br>                <span class="hljs-keyword">if</span>(nums[i]&gt;nums[j])&#123;<br>                    <span class="hljs-comment">//把nums[i]接在后面，形成长度为dp[j]+1，且以nums[i]为结尾的递增子序列</span><br>                    dp[i]=<span class="hljs-built_in">max</span>(dp[i], dp[j]+<span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            res = <span class="hljs-built_in">max</span>(res, dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <h4 id="354-俄罗斯套娃信封问题"><a href="#354-俄罗斯套娃信封问题" class="headerlink" title="354.俄罗斯套娃信封问题"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/russian-doll-envelopes/">354.俄罗斯套娃信封问题</a></h4><blockquote>
