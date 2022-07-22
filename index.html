@@ -303,6 +303,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://HReina.com/2022/07/22/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9B%B8%E5%85%B3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/HReina.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HReina">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/07/22/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9B%B8%E5%85%B3/" itemprop="url">最长递增子序列相关</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-22T16:51:50+08:00">
+                2022-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index">
+                    <span itemprop="name">最长递增子序列相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>最长递增子序列及其变种</p>
+</blockquote>
+<h4 id="300-最长递增子序列"><a href="#300-最长递增子序列" class="headerlink" title="300.最长递增子序列"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-increasing-subsequence/">300.最长递增子序列</a></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">lengthOfLIS</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span> </span>&#123;<br>        <span class="hljs-comment">//dp[i]表示以nums[i]结尾的最长递增子序列的长度</span><br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n, <span class="hljs-number">1</span>)</span></span>;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)&#123;<br>                <span class="hljs-comment">//寻找nums[0...j-1]中比nums[i]小的元素</span><br>                <span class="hljs-keyword">if</span>(nums[i]&gt;nums[j])&#123;<br>                    <span class="hljs-comment">//把nums[i]接在后面，形成长度为dp[j]+1，且以nums[i]为结尾的递增子序列</span><br>                    dp[i]=<span class="hljs-built_in">max</span>(dp[i], dp[j]+<span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            res = <span class="hljs-built_in">max</span>(res, dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="354-俄罗斯套娃信封问题"><a href="#354-俄罗斯套娃信封问题" class="headerlink" title="354.俄罗斯套娃信封问题"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/russian-doll-envelopes/">354.俄罗斯套娃信封问题</a></h4><blockquote>
+<p>这道题目是最长递增子序列的一个变种，相当于在二维平面中找一个最长递增子序列，其长度就是最多能嵌套的信封个数。</p>
+<p>思路：先对宽w进行升序排序，如果遇到w相等，则按照高度h降序排序；之后把所有的h作为一个数组，在这个数组上计算最长递增子序列的长度就是答案。</p>
+<p>但是此方法：leetcode会超时</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">static</span> <span class="hljs-type">bool</span> <span class="hljs-title">Cmp</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; a, vector&lt;<span class="hljs-type">int</span>&gt;&amp; b)</span></span>&#123;<br>        <span class="hljs-keyword">if</span>(a[<span class="hljs-number">0</span>]==b[<span class="hljs-number">0</span>])&#123;<br>            <span class="hljs-keyword">return</span> a[<span class="hljs-number">1</span>]&gt;b[<span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-keyword">return</span> a[<span class="hljs-number">0</span>]&lt;b[<span class="hljs-number">0</span>];<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; envelopes)</span> </span>&#123;<br>        <span class="hljs-comment">//按照 w 升序排列，如果 w 相等，则按照 h 降序排列</span><br>        <span class="hljs-built_in">sort</span>(envelopes.<span class="hljs-built_in">begin</span>(), envelopes.<span class="hljs-built_in">end</span>(), Cmp);<br>        <span class="hljs-type">int</span> n=envelopes.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">nums</span><span class="hljs-params">(n)</span></span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            nums[i]=envelopes[i][<span class="hljs-number">1</span>];<br>        &#125;<br>        <span class="hljs-type">int</span> res = <span class="hljs-built_in">LIS</span>(nums);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>    <span class="hljs-comment">//最长递增子序列</span><br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">LIS</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; nums)</span></span>&#123;<br>        <span class="hljs-type">int</span> n=nums.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n, <span class="hljs-number">1</span>)</span></span>;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)&#123;<br>                <span class="hljs-keyword">if</span>(nums[i]&gt;nums[j])&#123;<br>                    dp[i]=<span class="hljs-built_in">max</span>(dp[i], dp[j]+<span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            res=<span class="hljs-built_in">max</span>(res, dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxEnvelopes</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; intervals)</span> </span>&#123;<br>        <span class="hljs-comment">//动态规划，最长上升子序列的变形</span><br><br>        <span class="hljs-comment">//按照第一个值，宽 升序排序</span><br>        <span class="hljs-built_in">sort</span>(intervals.<span class="hljs-built_in">begin</span>(), intervals.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-type">int</span> n=intervals.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n, <span class="hljs-number">1</span>)</span></span>;<br><br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>            <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">0</span>; j &lt; i; j++) &#123;<br>                <span class="hljs-keyword">if</span>(intervals[i][<span class="hljs-number">0</span>]&gt;intervals[j][<span class="hljs-number">0</span>] &amp;&amp; intervals[i][<span class="hljs-number">1</span>] &gt; intervals[j][<span class="hljs-number">1</span>])<br>                 <span class="hljs-comment">// 如果w, h严格升序，尝试更新dp[i]</span><br>                dp[i] = <span class="hljs-built_in">max</span>(dp[i], dp[j] + <span class="hljs-number">1</span>);<br>            &#125;<br>        &#125;<br>        <br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            res = <span class="hljs-built_in">max</span>(res, dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br><span class="hljs-comment">//leetcode 也会超时</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="面试题-17-08-马戏团人塔"><a href="#面试题-17-08-马戏团人塔" class="headerlink" title="面试题 17.08.马戏团人塔"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/circus-tower-lcci/">面试题 17.08.马戏团人塔</a></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">bestSeqAtIndex</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; height, vector&lt;<span class="hljs-type">int</span>&gt;&amp; weight)</span> </span>&#123;<br>        <span class="hljs-comment">//动态规划</span><br>        <span class="hljs-type">int</span> n=height.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-comment">//将身高和体重一一对应起来</span><br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; nums;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            nums.<span class="hljs-built_in">push_back</span>(&#123;height[i], weight[i]&#125;);<br>        &#125;<br>        <br>        <span class="hljs-built_in">sort</span>(nums.<span class="hljs-built_in">begin</span>(), nums.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n, <span class="hljs-number">1</span>)</span></span>;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)&#123;<br>                <span class="hljs-keyword">if</span>(nums[i][<span class="hljs-number">0</span>]&gt;nums[j][<span class="hljs-number">0</span>] &amp;&amp; nums[i][<span class="hljs-number">1</span>]&gt;nums[j][<span class="hljs-number">1</span>])&#123;<br>                    dp[i] = <span class="hljs-built_in">max</span>(dp[i], dp[j]+<span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br><br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            res = <span class="hljs-built_in">max</span>(res, dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br><span class="hljs-comment">//leetcode 会超时</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="面试题-08-13-堆箱子"><a href="#面试题-08-13-堆箱子" class="headerlink" title="面试题 08.13.堆箱子"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/pile-box-lcci/">面试题 08.13.堆箱子</a></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">pileBox</span><span class="hljs-params">(vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt;&amp; box)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=box.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-built_in">sort</span>(box.<span class="hljs-built_in">begin</span>(), box.<span class="hljs-built_in">end</span>());<br>        <span class="hljs-comment">//dp[i]表示以第i个结尾的箱子，</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(n)</span></span>;<br><br>        <span class="hljs-comment">//base case</span><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            dp[i]=box[i][<span class="hljs-number">2</span>];<br>        &#125;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;i;j++)&#123;<br>                <span class="hljs-keyword">if</span>(box[i][<span class="hljs-number">0</span>]&gt;box[j][<span class="hljs-number">0</span>] &amp;&amp; box[i][<span class="hljs-number">1</span>]&gt;box[j][<span class="hljs-number">1</span>] &amp;&amp; box[i][<span class="hljs-number">2</span>]&gt;box[j][<span class="hljs-number">2</span>])&#123;<br>                    dp[i]=<span class="hljs-built_in">max</span>(dp[i], dp[j]+box[i][<span class="hljs-number">2</span>]);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-type">int</span> res=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            res = <span class="hljs-built_in">max</span>(res, dp[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://HReina.com/2022/07/08/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1439,178 +1620,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://HReina.com/2022/06/12/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/HReina.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HReina">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/06/12/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" itemprop="url">二叉搜索树</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-06-12T12:09:55+08:00">
-                2022-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/" itemprop="url" rel="index">
-                    <span itemprop="name">二叉树</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/%E4%BA%8C%E5%8F%89%E6%A0%91/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" itemprop="url" rel="index">
-                    <span itemprop="name">二叉搜索树</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>验证二叉搜索树、二叉搜索树中第k小的元素、把二叉搜索树转换为累加树、二叉搜索树中的搜索、二叉搜索树中的插入操作、删除二叉搜索树中的节点、不同的二叉搜索树 I、不同的二叉搜索树 II</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2022/06/12/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1665,7 +1674,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1676,7 +1685,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">64</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1752,7 +1761,7 @@
           <h3 class="widget-title">标签云</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">44</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">28</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">45</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">29</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
               </canvas>
           </div>
       </div>
