@@ -93,19 +93,17 @@
 <meta property="og:site_name" content="HReina">
 <meta property="og:description" content="买卖股票的最佳时机相关问题">
 <meta property="og:locale">
-<meta property="og:image" content="http://hreina.com/images/121.png">
-<meta property="og:image" content="http://hreina.com/images/122.png">
 <meta property="og:image" content="http://hreina.com/images/123.png">
 <meta property="og:image" content="http://hreina.com/images/188.png">
 <meta property="og:image" content="http://hreina.com/images/309.png">
 <meta property="og:image" content="http://hreina.com/images/714.png">
 <meta property="article:published_time" content="2022-05-19T13:44:01.000Z">
-<meta property="article:modified_time" content="2022-06-06T07:09:26.288Z">
+<meta property="article:modified_time" content="2022-08-13T04:01:42.773Z">
 <meta property="article:author" content="HReina">
 <meta property="article:tag" content="c++">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://hreina.com/images/121.png">
+<meta name="twitter:image" content="http://hreina.com/images/123.png">
 
 
 
@@ -438,19 +436,13 @@
 </blockquote>
 <span id="more"></span>
 
-<h5 id="121-买卖股票的最佳时机-I"><a href="#121-买卖股票的最佳时机-I" class="headerlink" title="121.买卖股票的最佳时机 I"></a>121.买卖股票的最佳时机 I</h5><blockquote>
+<h4 id="121-买卖股票的最佳时机"><a href="#121-买卖股票的最佳时机" class="headerlink" title="121. 买卖股票的最佳时机"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/">121. 买卖股票的最佳时机</a></h4><blockquote>
 <p>只能交易一次</p>
-</blockquote>
-<blockquote>
-<p><img src="/images/121.png" alt="121"></p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; prices)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=prices.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp0</span><span class="hljs-params">(n)</span></span>; <span class="hljs-comment">//当天不持有股票</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp1</span><span class="hljs-params">(n)</span></span>; <span class="hljs-comment">//当天持有股票</span><br><br>        <span class="hljs-comment">//base case</span><br>        dp0[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        dp1[<span class="hljs-number">0</span>]=-prices[<span class="hljs-number">0</span>];<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;n;i++)&#123;<br>            dp0[i]=<span class="hljs-built_in">max</span>(dp0[i<span class="hljs-number">-1</span>], dp1[i<span class="hljs-number">-1</span>]+prices[i]);<br>            dp1[i]=<span class="hljs-built_in">max</span>(dp1[i<span class="hljs-number">-1</span>], -prices[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp0[n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
-<h5 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122.买卖股票的最佳时机 II"></a>122.买卖股票的最佳时机 II</h5><blockquote>
+<h4 id="122-买卖股票的最佳时机-II"><a href="#122-买卖股票的最佳时机-II" class="headerlink" title="122. 买卖股票的最佳时机 II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/">122. 买卖股票的最佳时机 II</a></h4><blockquote>
 <p>交易次数不限</p>
-</blockquote>
-<blockquote>
-<p><img src="/images/122.png" alt="122"></p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">maxProfit</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; prices)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=prices.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp0</span><span class="hljs-params">(n)</span></span>; <span class="hljs-comment">//当天没有持有股票</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp1</span><span class="hljs-params">(n)</span></span>; <span class="hljs-comment">//当天持有股票</span><br><br>        <span class="hljs-comment">//base case</span><br>        dp0[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        dp1[<span class="hljs-number">0</span>]=-prices[<span class="hljs-number">0</span>];<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;n;i++)&#123;<br>            dp0[i]=<span class="hljs-built_in">max</span>(dp0[i<span class="hljs-number">-1</span>], dp1[i<span class="hljs-number">-1</span>]+prices[i]);<br>            dp1[i]=<span class="hljs-built_in">max</span>(dp1[i<span class="hljs-number">-1</span>], dp0[i<span class="hljs-number">-1</span>]-prices[i]);<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp0[n<span class="hljs-number">-1</span>];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
@@ -641,7 +633,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">51</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -652,7 +644,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">66</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -726,7 +718,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-I"><span class="nav-number">1.</span> <span class="nav-text">121.买卖股票的最佳时机 I</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II"><span class="nav-number">2.</span> <span class="nav-text">122.买卖股票的最佳时机 II</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#123-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-III"><span class="nav-number">3.</span> <span class="nav-text">123.买卖股票的最佳时机 III</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#188-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-IV"><span class="nav-number">4.</span> <span class="nav-text">188.买卖股票的最佳时机 IV</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#309-%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F"><span class="nav-number">5.</span> <span class="nav-text">309.最佳买卖股票时机含冷冻期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#714-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9"><span class="nav-number">6.</span> <span class="nav-text">714.买卖股票的最佳时机含手续费</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA"><span class="nav-number">1.</span> <span class="nav-text">121. 买卖股票的最佳时机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#122-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-II"><span class="nav-number">2.</span> <span class="nav-text">122. 买卖股票的最佳时机 II</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#123-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-III"><span class="nav-number">2.1.</span> <span class="nav-text">123.买卖股票的最佳时机 III</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#188-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-IV"><span class="nav-number">2.2.</span> <span class="nav-text">188.买卖股票的最佳时机 IV</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#309-%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F"><span class="nav-number">2.3.</span> <span class="nav-text">309.最佳买卖股票时机含冷冻期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#714-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9"><span class="nav-number">2.4.</span> <span class="nav-text">714.买卖股票的最佳时机含手续费</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -744,7 +736,7 @@
           <h3 class="widget-title">标签云</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">46</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">30</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">47</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">31</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
               </canvas>
           </div>
       </div>
