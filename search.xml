@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>基本计算器</title>
+      <link href="/2022/08/15/%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8/"/>
+      <url>/2022/08/15/%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>基本计算器</p></blockquote><span id="more"></span><h4 id="224-基本计算器"><a href="#224-基本计算器" class="headerlink" title="224. 基本计算器"></a><a href="https://leetcode.cn/problems/basic-calculator/">224. 基本计算器</a></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">calculate</span><span class="hljs-params">(string s)</span> </span>&#123;<br>        <span class="hljs-comment">//思路：由于只有+、-操作，将括号展开，借助于栈</span><br>        stack&lt;<span class="hljs-type">int</span>&gt; sign;      <span class="hljs-comment">//栈顶记录当前符号</span><br>        sign.<span class="hljs-built_in">push</span>(<span class="hljs-number">1</span>);        <span class="hljs-comment">//默认为 +</span><br><br>        <span class="hljs-type">int</span> res = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> num = <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> op = <span class="hljs-number">1</span>;<br>        <br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">char</span> ch : s)&#123;    <span class="hljs-comment">//遍历 空格自动跳过</span><br>            <span class="hljs-keyword">if</span>(ch&gt;=<span class="hljs-string">&#x27;0&#x27;</span> &amp;&amp; ch&lt;=<span class="hljs-string">&#x27;9&#x27;</span>)&#123;   <span class="hljs-comment">//遇到数值</span><br>                num = num*<span class="hljs-number">10</span> + (ch-<span class="hljs-string">&#x27;0&#x27;</span>);<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            res += op * num;  <span class="hljs-comment">//计算一个运算符</span><br>            num = <span class="hljs-number">0</span>;    <span class="hljs-comment">//数值清空</span><br><br>            <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;+&#x27;</span>) op = sign.<span class="hljs-built_in">top</span>();<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;-&#x27;</span>) op = -sign.<span class="hljs-built_in">top</span>();<br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;(&#x27;</span>) sign.<span class="hljs-built_in">push</span>(op); <span class="hljs-comment">//进入左括号，把左括号之前的符号置于栈顶</span><br>            <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(ch==<span class="hljs-string">&#x27;)&#x27;</span>) sign.<span class="hljs-built_in">pop</span>(); <span class="hljs-comment">//退出括号，弹出栈顶符号</span><br>        &#125;<br><br>        res += op*num;   <span class="hljs-comment">//计算最后一个数</span><br><br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 栈 </category>
+          
+          <category> 基本计算器 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> c++ </tag>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>逆波兰表达式求值</title>
       <link href="/2022/08/14/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/"/>
       <url>/2022/08/14/%E9%80%86%E6%B3%A2%E5%85%B0%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%B1%82%E5%80%BC/</url>
