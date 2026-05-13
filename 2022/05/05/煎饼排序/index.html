@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="c++,算法," />
+  <meta name="keywords" content="c++,golang,算法," />
 
 
 
@@ -94,9 +94,10 @@
 <meta property="og:description" content="煎饼排序">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-05-05T13:43:15.000Z">
-<meta property="article:modified_time" content="2022-06-06T13:46:02.154Z">
+<meta property="article:modified_time" content="2026-05-13T16:03:54.749Z">
 <meta property="article:author" content="HReina">
 <meta property="article:tag" content="c++">
+<meta property="article:tag" content="golang">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
 
@@ -433,6 +434,8 @@
 
 <h5 id="969-煎饼排序"><a href="#969-煎饼排序" class="headerlink" title="969.煎饼排序"></a>969.煎饼排序</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    vector&lt;<span class="hljs-type">int</span>&gt; res;<br>    <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">pancakeSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=arr.<span class="hljs-built_in">size</span>();<br>        <span class="hljs-built_in">cakeSort</span>(arr, n);<br>        <span class="hljs-keyword">return</span> res;<br>    &#125;<br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">cakeSort</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr, <span class="hljs-type">int</span> n)</span></span>&#123;<br>        <span class="hljs-comment">//base case</span><br>        <span class="hljs-keyword">if</span>(n==<span class="hljs-number">1</span>) <span class="hljs-keyword">return</span>;<br>        <br>        <span class="hljs-comment">//寻找最大煎饼的索引</span><br>        <span class="hljs-type">int</span> maxCake=<span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> maxCakeIndex=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;n;i++)&#123;<br>            <span class="hljs-keyword">if</span>(arr[i]&gt;maxCake)&#123;<br>                maxCakeIndex=i;<br>                maxCake=arr[i];<br>            &#125;<br>        &#125;<br>        <span class="hljs-comment">//第一次翻转，将最大煎饼翻到最上面</span><br>        <span class="hljs-built_in">reverse</span>(arr, <span class="hljs-number">0</span>, maxCakeIndex);<br>        <span class="hljs-comment">//记录此次翻转</span><br>        res.<span class="hljs-built_in">push_back</span>(maxCakeIndex+<span class="hljs-number">1</span>);<br>        <span class="hljs-comment">//第二次翻转，将最大煎饼翻到最下面</span><br>        <span class="hljs-built_in">reverse</span>(arr, <span class="hljs-number">0</span>, n<span class="hljs-number">-1</span>);<br>        <span class="hljs-comment">//记录此次翻转</span><br>        res.<span class="hljs-built_in">push_back</span>(n);<br><br>        <span class="hljs-comment">//递归调用，翻转剩下的烧饼</span><br>        <span class="hljs-built_in">cakeSort</span>(arr, n<span class="hljs-number">-1</span>);<br>    &#125;<br>    <span class="hljs-comment">//翻转数组arr[i...j]的元素</span><br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">reverse</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; arr, <span class="hljs-type">int</span> i, <span class="hljs-type">int</span> j)</span></span>&#123;<br>        <span class="hljs-keyword">while</span>(i&lt;j)&#123;<br>            <span class="hljs-built_in">swap</span>(arr[i], arr[j]);<br>            i++;<br>            j--;<br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">type</span> Solution <span class="hljs-keyword">struct</span> &#123;<br>    res []<span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Solution)</span></span> pancakeSort(arr []<span class="hljs-type">int</span>) []<span class="hljs-type">int</span> &#123;<br>    n := <span class="hljs-built_in">len</span>(arr)<br>    s.res = []<span class="hljs-type">int</span>&#123;&#125;<br>    s.cakeSort(arr, n)<br>    <span class="hljs-keyword">return</span> s.res<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Solution)</span></span> cakeSort(arr []<span class="hljs-type">int</span>, n <span class="hljs-type">int</span>) &#123;<br>    <span class="hljs-comment">//base case</span><br>    <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> &#123;<br>        <span class="hljs-keyword">return</span><br>    &#125;<br>    <br>    <span class="hljs-comment">//寻找最大煎饼的索引</span><br>    maxCake := <span class="hljs-number">0</span><br>    maxCakeIndex := <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ &#123;<br>        <span class="hljs-keyword">if</span> arr[i] &gt; maxCake &#123;<br>            maxCakeIndex = i<br>            maxCake = arr[i]<br>        &#125;<br>    &#125;<br>    <span class="hljs-comment">//第一次翻转，将最大煎饼翻到最上面</span><br>    s.reverse(arr, <span class="hljs-number">0</span>, maxCakeIndex)<br>    <span class="hljs-comment">//记录此次翻转</span><br>    s.res = <span class="hljs-built_in">append</span>(s.res, maxCakeIndex+<span class="hljs-number">1</span>)<br>    <span class="hljs-comment">//第二次翻转，将最大煎饼翻到最下面</span><br>    s.reverse(arr, <span class="hljs-number">0</span>, n<span class="hljs-number">-1</span>)<br>    <span class="hljs-comment">//记录此次翻转</span><br>    s.res = <span class="hljs-built_in">append</span>(s.res, n)<br>    <br>    <span class="hljs-comment">//递归调用，翻转剩下的烧饼</span><br>    s.cakeSort(arr, n<span class="hljs-number">-1</span>)<br>&#125;<br><br><span class="hljs-comment">//翻转数组arr[i...j]的元素</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *Solution)</span></span> reverse(arr []<span class="hljs-type">int</span>, i, j <span class="hljs-type">int</span>) &#123;<br>    <span class="hljs-keyword">for</span> i &lt; j &#123;<br>        arr[i], arr[j] = arr[j], arr[i]<br>        i++<br>        j--<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -474,6 +477,8 @@
         <div class="post-tags">
         
              <a href="/tags/c/" rel="tag"> <i class="fa fa-tag"></i> c++</a>
+       
+             <a href="/tags/golang/" rel="tag"> <i class="fa fa-tag"></i> golang</a>
        
              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"> <i class="fa fa-tag"></i> 算法</a>
        
@@ -588,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +604,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -610,7 +615,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -691,7 +696,7 @@
           <h3 class="widget-title">标签云</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">47</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
               </canvas>
           </div>
       </div>
@@ -708,7 +713,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

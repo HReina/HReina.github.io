@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="c++,算法," />
+  <meta name="keywords" content="c++,golang,算法," />
 
 
 
@@ -94,9 +94,10 @@
 <meta property="og:description" content="零钱兑换 I   II">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-05-19T13:42:09.000Z">
-<meta property="article:modified_time" content="2022-06-06T01:45:56.300Z">
+<meta property="article:modified_time" content="2026-05-13T15:47:23.101Z">
 <meta property="article:author" content="HReina">
 <meta property="article:tag" content="c++">
+<meta property="article:tag" content="golang">
 <meta property="article:tag" content="算法">
 <meta name="twitter:card" content="summary">
 
@@ -438,6 +439,8 @@
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(vector&lt;<span class="hljs-type">int</span>&gt;&amp; coins, <span class="hljs-type">int</span> amount)</span> </span>&#123;<br>        <span class="hljs-comment">//动态规划，dp[i]=x，表示目标金额为i时对应的最少硬币个数为x</span><br>        <span class="hljs-function">vector&lt;<span class="hljs-type">int</span>&gt; <span class="hljs-title">dp</span><span class="hljs-params">(amount+<span class="hljs-number">1</span>, amount+<span class="hljs-number">1</span>)</span></span>;<br>        dp[<span class="hljs-number">0</span>]=<span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;dp.<span class="hljs-built_in">size</span>();i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> coin : coins)&#123;<br>                <span class="hljs-keyword">if</span>(i-coin&gt;=<span class="hljs-number">0</span>)&#123;<br>                    dp[i]=<span class="hljs-built_in">min</span>(dp[i], dp[i-coin]+<span class="hljs-number">1</span>);<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[amount]==amount+<span class="hljs-number">1</span> ? <span class="hljs-number">-1</span> : dp[amount];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">coinChange</span><span class="hljs-params">(coins []<span class="hljs-type">int</span>, amount <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-comment">//动态规划，dp[i]=x，表示目标金额为i时对应的最少硬币个数为x</span><br>    dp := <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, amount+<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = amount + <span class="hljs-number">1</span><br>    &#125;<br>    dp[<span class="hljs-number">0</span>] = <span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(dp); i++ &#123;<br>        <span class="hljs-keyword">for</span> _, coin := <span class="hljs-keyword">range</span> coins &#123;<br>            <span class="hljs-keyword">if</span> i-coin &gt;= <span class="hljs-number">0</span> &#123;<br>                dp[i] = min(dp[i], dp[i-coin]+<span class="hljs-number">1</span>)<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> dp[amount] == amount+<span class="hljs-number">1</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[amount]<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">min</span><span class="hljs-params">(a, b <span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-keyword">if</span> a &lt; b &#123;<br>        <span class="hljs-keyword">return</span> a<br>    &#125;<br>    <span class="hljs-keyword">return</span> b<br>&#125;<br></code></pre></td></tr></table></figure>
+
 <h4 id="518-零钱兑换-II"><a href="#518-零钱兑换-II" class="headerlink" title="518.零钱兑换 II"></a>518.零钱兑换 II</h4><blockquote>
 <p>给你一个整数数组 coins 表示不同面额的硬币，另给一个整数 amount 表示总金额。</p>
 <p>请你计算并返回可以凑成总金额的硬币组合数。如果任何硬币组合都无法凑出总金额，返回 0 。</p>
@@ -455,6 +458,8 @@
 <p><code>dp[i][j] = dp[i-1][j]+dp[i-1][j-coins[i]]+dp[i-1][j-2*coins[i]]...+dp[i-1][j-k*coins[i]]</code></p>
 </blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">change</span><span class="hljs-params">(<span class="hljs-type">int</span> amount, vector&lt;<span class="hljs-type">int</span>&gt;&amp; coins)</span> </span>&#123;<br>        <span class="hljs-type">int</span> n=coins.<span class="hljs-built_in">size</span>();<br>        vector&lt;vector&lt;<span class="hljs-type">int</span>&gt;&gt; <span class="hljs-built_in">dp</span>(n+<span class="hljs-number">1</span>,<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">int</span>&gt;(amount+<span class="hljs-number">1</span>));<br>        <span class="hljs-comment">//base case</span><br>        dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>]=<span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">1</span>;i&lt;=n;i++)&#123;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> j=<span class="hljs-number">0</span>;j&lt;=amount;j++)&#123;<br>                <span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> k=<span class="hljs-number">0</span>;k*coins[i<span class="hljs-number">-1</span>]&lt;=j;k++)&#123;<br>                    dp[i][j] += dp[i<span class="hljs-number">-1</span>][j-k*coins[i<span class="hljs-number">-1</span>]];<br>                &#125;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">return</span> dp[n][amount];<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">change</span><span class="hljs-params">(amount <span class="hljs-type">int</span>, coins []<span class="hljs-type">int</span>)</span></span> <span class="hljs-type">int</span> &#123;<br>    n := <span class="hljs-built_in">len</span>(coins)<br>    dp := <span class="hljs-built_in">make</span>([][]<span class="hljs-type">int</span>, n+<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> dp &#123;<br>        dp[i] = <span class="hljs-built_in">make</span>([]<span class="hljs-type">int</span>, amount+<span class="hljs-number">1</span>)<br>    &#125;<br>    <span class="hljs-comment">//base case</span><br>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-number">1</span><br>    <span class="hljs-keyword">for</span> i := <span class="hljs-number">1</span>; i &lt;= n; i++ &#123;<br>        <span class="hljs-keyword">for</span> j := <span class="hljs-number">0</span>; j &lt;= amount; j++ &#123;<br>            <span class="hljs-keyword">for</span> k := <span class="hljs-number">0</span>; k*coins[i<span class="hljs-number">-1</span>] &lt;= j; k++ &#123;<br>                dp[i][j] += dp[i<span class="hljs-number">-1</span>][j-k*coins[i<span class="hljs-number">-1</span>]]<br>            &#125;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[n][amount]<br>&#125;<br></code></pre></td></tr></table></figure>
       
     </div>
     
@@ -495,6 +500,8 @@
         <div class="post-tags">
         
              <a href="/tags/c/" rel="tag"> <i class="fa fa-tag"></i> c++</a>
+       
+             <a href="/tags/golang/" rel="tag"> <i class="fa fa-tag"></i> golang</a>
        
              <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag"> <i class="fa fa-tag"></i> 算法</a>
        
@@ -609,7 +616,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -620,7 +627,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -631,7 +638,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -712,7 +719,7 @@
           <h3 class="widget-title">标签云</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">47</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
               </canvas>
           </div>
       </div>
@@ -729,7 +736,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

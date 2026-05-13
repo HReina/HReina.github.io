@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="c++," />
+  <meta name="keywords" content="c++,golang," />
 
 
 
@@ -94,9 +94,10 @@
 <meta property="og:description" content="​                                                                  三个线程顺序打印ABC">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-03-14T12:55:14.000Z">
-<meta property="article:modified_time" content="2022-06-14T08:03:30.823Z">
+<meta property="article:modified_time" content="2026-05-13T16:04:38.381Z">
 <meta property="article:author" content="HReina">
 <meta property="article:tag" content="c++">
+<meta property="article:tag" content="golang">
 <meta name="twitter:card" content="summary">
 
 
@@ -421,6 +422,8 @@
 
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;vector&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;thread&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span><span class="hljs-string">&lt;condition_variable&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br>mutex m; <span class="hljs-comment">//互斥锁</span><br>std::condition_variable cond_var; <span class="hljs-comment">//创建条件变量对象</span><br><span class="hljs-type">int</span> num=<span class="hljs-number">0</span>;<br><span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">func</span><span class="hljs-params">(<span class="hljs-type">char</span> ch)</span></span><br><span class="hljs-function"></span>&#123;<br>	<span class="hljs-type">int</span> n=ch-<span class="hljs-string">&#x27;A&#x27;</span>;<br>	<span class="hljs-keyword">for</span>(<span class="hljs-type">int</span> i=<span class="hljs-number">0</span>;i&lt;<span class="hljs-number">10</span>;i++)<br>	&#123;<br>		<span class="hljs-function">std::unique_lock&lt;std::mutex&gt; <span class="hljs-title">mylock</span><span class="hljs-params">(m)</span></span>;<br>		cond_var.<span class="hljs-built_in">wait</span>(mylock,[n]&#123; <span class="hljs-comment">//调用wait函数，先解锁mylock，然后判断lambda的返回值</span><br>            <span class="hljs-keyword">return</span> n==num;&#125;);<br>		cout&lt;&lt;ch;<br>		num=(num+<span class="hljs-number">1</span>)%<span class="hljs-number">3</span>;<br>		mylock.<span class="hljs-built_in">unlock</span>();<br>		cond_var.<span class="hljs-built_in">notify_all</span>(); <span class="hljs-comment">//唤醒所有等待条件变量的线程。</span><br>	&#125;<br>&#125;<br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>	vector&lt;thread&gt; pool;<br>	pool.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">thread</span>(func,<span class="hljs-string">&#x27;A&#x27;</span>));<br>	pool.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">thread</span>(func,<span class="hljs-string">&#x27;B&#x27;</span>));<br>	pool.<span class="hljs-built_in">push_back</span>(<span class="hljs-built_in">thread</span>(func,<span class="hljs-string">&#x27;C&#x27;</span>));<br>	<span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> it = pool.<span class="hljs-built_in">begin</span>(); it != pool.<span class="hljs-built_in">end</span>(); it++)<br>	&#123;<br>		it-&gt;<span class="hljs-built_in">join</span>();<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">调用wait时，会执行以下步骤：1、对绑定的unique_lock对象解锁；2、判断调用对象的返回值。如果调用对象返回值为false，则wait就一直阻塞，一直等待被notify唤醒；如果调用对象为true，则会对绑定的unique_lock对象重新上锁，然后wait函数返回，继续执行后续的程序。当wait被notify唤醒时，会先重新对绑定的unique_lock对象上锁，然后执行上面的1、2步骤</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
 
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br>)<br><br><span class="hljs-keyword">var</span> (<br>	mu   sync.Mutex        <span class="hljs-comment">// 互斥锁</span><br>	cond *sync.Cond        <span class="hljs-comment">// 条件变量</span><br>	num  <span class="hljs-type">int</span> = <span class="hljs-number">0</span>           <span class="hljs-comment">// 当前应该打印的字符索引</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">printChar</span><span class="hljs-params">(ch <span class="hljs-type">rune</span>, wg *sync.WaitGroup)</span></span> &#123;<br>	<span class="hljs-keyword">defer</span> wg.Done()<br>	n := <span class="hljs-type">int</span>(ch - <span class="hljs-string">&#x27;A&#x27;</span>)<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ &#123;<br>		mu.Lock()<br>		<span class="hljs-comment">// 等待直到轮到当前goroutine打印</span><br>		<span class="hljs-keyword">for</span> num != n &#123;<br>			cond.Wait() <span class="hljs-comment">// 释放锁并等待，被唤醒后重新获取锁</span><br>		&#125;<br>		fmt.Print(<span class="hljs-type">string</span>(ch))<br>		num = (num + <span class="hljs-number">1</span>) % <span class="hljs-number">3</span><br>		mu.Unlock()<br>		cond.Broadcast() <span class="hljs-comment">// 唤醒所有等待的goroutine</span><br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	cond = sync.NewCond(&amp;mu) <span class="hljs-comment">// 创建条件变量对象</span><br>	<span class="hljs-keyword">var</span> wg sync.WaitGroup<br>	wg.Add(<span class="hljs-number">3</span>)<br>	<br>	<span class="hljs-keyword">go</span> printChar(<span class="hljs-string">&#x27;A&#x27;</span>, &amp;wg)<br>	<span class="hljs-keyword">go</span> printChar(<span class="hljs-string">&#x27;B&#x27;</span>, &amp;wg)<br>	<span class="hljs-keyword">go</span> printChar(<span class="hljs-string">&#x27;C&#x27;</span>, &amp;wg)<br>	<br>	wg.Wait()<br>	fmt.Println() <span class="hljs-comment">// 换行</span><br>&#125;<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">Go版本说明：</span><br><span class="hljs-comment">1. 使用sync.Cond实现条件变量，类似C++的condition_variable</span><br><span class="hljs-comment">2. cond.Wait()会自动释放锁并等待，被唤醒后重新获取锁</span><br><span class="hljs-comment">3. cond.Broadcast()唤醒所有等待的goroutine，类似notify_all</span><br><span class="hljs-comment">4. 使用sync.WaitGroup等待所有goroutine完成</span><br><span class="hljs-comment">5. 使用for循环检查条件，避免虚假唤醒</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -462,6 +465,8 @@
         <div class="post-tags">
         
              <a href="/tags/c/" rel="tag"> <i class="fa fa-tag"></i> c++</a>
+       
+             <a href="/tags/golang/" rel="tag"> <i class="fa fa-tag"></i> golang</a>
        
         </div>
       
@@ -565,7 +570,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -576,7 +581,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -587,7 +592,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -652,7 +657,7 @@
           <h3 class="widget-title">标签云</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">47</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
               </canvas>
           </div>
       </div>
@@ -669,7 +674,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

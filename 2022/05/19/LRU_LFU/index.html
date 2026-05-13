@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="c++,数据结构," />
+  <meta name="keywords" content="c++,golang,数据结构," />
 
 
 
@@ -94,9 +94,10 @@
 <meta property="og:description" content="LRU&#x2F;LFU">
 <meta property="og:locale">
 <meta property="article:published_time" content="2022-05-19T13:43:08.000Z">
-<meta property="article:modified_time" content="2022-07-12T08:41:29.195Z">
+<meta property="article:modified_time" content="2026-05-13T15:42:45.766Z">
 <meta property="article:author" content="HReina">
 <meta property="article:tag" content="c++">
+<meta property="article:tag" content="golang">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
 
@@ -433,6 +434,8 @@
 
 <h4 id="146-LRU缓存"><a href="#146-LRU缓存" class="headerlink" title="146.LRU缓存"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/lru-cache/">146.LRU缓存</a></h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs c++"><span class="hljs-keyword">class</span> <span class="hljs-title class_">LRUCache</span> &#123;<br><span class="hljs-keyword">public</span>:<br>    <span class="hljs-built_in">LRUCache</span>(<span class="hljs-type">int</span> capacity) &#123;<br>        cap = capacity;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-type">int</span> key)</span> </span>&#123;<br>        <span class="hljs-keyword">auto</span> it = mp.<span class="hljs-built_in">find</span>(key); <span class="hljs-comment">//返回迭代器</span><br>        <span class="hljs-comment">//如果 key 不存在则返回 -1</span><br>        <span class="hljs-keyword">if</span>(it==mp.<span class="hljs-built_in">end</span>()) <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>        <span class="hljs-comment">//提升为最近使用的，将该结点移动到链表头</span><br>        lst.<span class="hljs-built_in">splice</span>(lst.<span class="hljs-built_in">begin</span>(), lst, it-&gt;second);<br>        <span class="hljs-keyword">return</span> mp[key]-&gt;second;<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-type">void</span> <span class="hljs-title">put</span><span class="hljs-params">(<span class="hljs-type">int</span> key, <span class="hljs-type">int</span> value)</span> </span>&#123;<br>        <span class="hljs-keyword">if</span>(mp.<span class="hljs-built_in">find</span>(key)==mp.<span class="hljs-built_in">end</span>())&#123; <span class="hljs-comment">//key不存在</span><br>            <span class="hljs-keyword">if</span>(lst.<span class="hljs-built_in">size</span>()==cap)&#123;<br>                <span class="hljs-comment">//删除最久未使用的元素</span><br>                mp.<span class="hljs-built_in">erase</span>(lst.<span class="hljs-built_in">back</span>().first);<br>                lst.<span class="hljs-built_in">pop_back</span>();<br>            &#125;<br>        &#125;<span class="hljs-keyword">else</span>&#123; <span class="hljs-comment">//key已存在，抹去</span><br>            lst.<span class="hljs-built_in">erase</span>(mp[key]);<br>        &#125;<br>        <span class="hljs-comment">//插入&#123;key, value&#125;</span><br>        lst.<span class="hljs-built_in">push_front</span>(&#123;key, value&#125;);<br>        <span class="hljs-comment">//添加mp中 key 到 list迭代器的映射</span><br>        mp[key] = lst.<span class="hljs-built_in">begin</span>();<br>    &#125;<br><span class="hljs-keyword">private</span>:<br>    <span class="hljs-comment">//缓存容量</span><br>    <span class="hljs-type">int</span> cap;<br>    <span class="hljs-comment">//双向链表，存储 key-value</span><br>    list&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt; lst;<br>    <span class="hljs-comment">//哈希表，存储 key-(key, value) 迭代器</span><br>    unordered_map&lt;<span class="hljs-type">int</span>, list&lt;pair&lt;<span class="hljs-type">int</span>, <span class="hljs-type">int</span>&gt;&gt;::iterator&gt; mp;<br>&#125;;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your LRUCache object will be instantiated and called as such:</span><br><span class="hljs-comment"> * LRUCache* obj = new LRUCache(capacity);</span><br><span class="hljs-comment"> * int param_1 = obj-&gt;get(key);</span><br><span class="hljs-comment"> * obj-&gt;put(key,value);</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
 
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;container/list&quot;</span><br><br><span class="hljs-keyword">type</span> LRUCache <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-comment">//缓存容量</span><br>    <span class="hljs-built_in">cap</span> <span class="hljs-type">int</span><br>    <span class="hljs-comment">//双向链表，存储 key-value</span><br>    lst *list.List<br>    <span class="hljs-comment">//哈希表，存储 key-(key, value) 迭代器</span><br>    mp <span class="hljs-keyword">map</span>[<span class="hljs-type">int</span>]*list.Element<br>&#125;<br><br><span class="hljs-keyword">type</span> pair <span class="hljs-keyword">struct</span> &#123;<br>    key   <span class="hljs-type">int</span><br>    value <span class="hljs-type">int</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">Constructor</span><span class="hljs-params">(capacity <span class="hljs-type">int</span>)</span></span> LRUCache &#123;<br>    <span class="hljs-keyword">return</span> LRUCache&#123;<br>        <span class="hljs-built_in">cap</span>: capacity,<br>        lst: list.New(),<br>        mp:  <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-type">int</span>]*list.Element),<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *LRUCache)</span></span> Get(key <span class="hljs-type">int</span>) <span class="hljs-type">int</span> &#123;<br>    <span class="hljs-comment">//返回迭代器</span><br>    element, ok := this.mp[key]<br>    <span class="hljs-comment">//如果 key 不存在则返回 -1</span><br>    <span class="hljs-keyword">if</span> !ok &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span><br>    &#125;<br>    <span class="hljs-comment">//提升为最近使用的，将该结点移动到链表头</span><br>    this.lst.MoveToFront(element)<br>    <span class="hljs-keyword">return</span> element.Value.(pair).value<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(this *LRUCache)</span></span> Put(key <span class="hljs-type">int</span>, value <span class="hljs-type">int</span>) &#123;<br>    <span class="hljs-keyword">if</span> element, ok := this.mp[key]; !ok &#123; <span class="hljs-comment">//key不存在</span><br>        <span class="hljs-keyword">if</span> this.lst.Len() == this.<span class="hljs-built_in">cap</span> &#123;<br>            <span class="hljs-comment">//删除最久未使用的元素</span><br>            back := this.lst.Back()<br>            this.lst.Remove(back)<br>            <span class="hljs-built_in">delete</span>(this.mp, back.Value.(pair).key)<br>        &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123; <span class="hljs-comment">//key已存在，抹去</span><br>        this.lst.Remove(element)<br>    &#125;<br>    <span class="hljs-comment">//插入&#123;key, value&#125;</span><br>    newElement := this.lst.PushFront(pair&#123;key: key, value: value&#125;)<br>    <span class="hljs-comment">//添加mp中 key 到 list迭代器的映射</span><br>    this.mp[key] = newElement<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Your LRUCache object will be instantiated and called as such:</span><br><span class="hljs-comment"> * obj := Constructor(capacity);</span><br><span class="hljs-comment"> * param_1 := obj.Get(key);</span><br><span class="hljs-comment"> * obj.Put(key,value);</span><br><span class="hljs-comment"> */</span><br></code></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -474,6 +477,8 @@
         <div class="post-tags">
         
              <a href="/tags/c/" rel="tag"> <i class="fa fa-tag"></i> c++</a>
+       
+             <a href="/tags/golang/" rel="tag"> <i class="fa fa-tag"></i> golang</a>
        
              <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"> <i class="fa fa-tag"></i> 数据结构</a>
        
@@ -588,7 +593,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">55</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -599,7 +604,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -610,7 +615,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -691,7 +696,7 @@
           <h3 class="widget-title">标签云</h3>
           <div id="myCanvasContainer" class="widget tagcloud">
               <canvas width="250" height="250" id="resCanvas" style="width=100%">
-                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
+                  <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a><span class="tag-list-count">49</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/golang/" rel="tag">golang</a><span class="tag-list-count">47</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag">云计算</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">数据结构</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a><span class="tag-list-count">32</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">面向对象</a><span class="tag-list-count">3</span></li></ul>
               </canvas>
           </div>
       </div>
@@ -708,7 +713,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
